@@ -9,6 +9,9 @@ import Amplify, { Auth } from 'aws-amplify';
 import { AuthComponentComponent } from './auth/auth-component/auth-component.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { BlogpostComponent } from './blogpost/blogpost.component';
+import { CreateBlogComponent } from './blogpost/create-blog/create-blog.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MyBlogsComponent } from './blogpost/my-blogs/my-blogs.component';
 
 
 // Amplify.configure(awsconfig);
@@ -18,12 +21,15 @@ import { BlogpostComponent } from './blogpost/blogpost.component';
     AppComponent,
     AuthComponentComponent,
     NavbarComponent,
-    BlogpostComponent
+    BlogpostComponent,
+    CreateBlogComponent,
+    MyBlogsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AmplifyAuthenticatorModule
+    AmplifyAuthenticatorModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

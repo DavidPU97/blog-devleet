@@ -1,0 +1,77 @@
+<!-- <div class="container">
+    <h1>Post a blog!</h1>
+    <form class="needs-validation" novalidate>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="name">Title:</label>
+                        <input maxlength="100" type="text" class="form-control" id="name" placeholder="Title" required>
+                        <div class="invalid-feedback">
+                            Vnesite ime
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+        
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Contents:</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Text" rows="3"></textarea>
+            </div>
+            <div class="row">
+                <div class="col d-flex">
+                    <button type="button" id="submitBtn" (click)="pushBlog()" class="btn btn-success d-flex">Submit</button>
+                </div>
+            </div>
+        </div>
+    </form>
+  
+</div> -->
+
+<form
+	(ngSubmit)="pushBlog($event)"
+	[formGroup]="blogForm">
+	<h3 *ngIf="!editMode">Add a Blogpost</h3>
+	<h3 *ngIf="editMode">Edit Blogpost</h3>
+	<div class="row">
+		<div class="col">
+			<div class="form-group">
+				<label for="title">Title: </label>
+				<input type="text"
+					class="form-control is-invalid"
+					[ngClass]="{ 'is-invalid': submitted && blogForm.controls.title.errors }"
+					id ="title"
+					formControlName="title"
+                    placeholder="Title">
+				<div *ngIf="submitted && blogForm.controls.title.errors" class="invalid-feedback">
+					<div *ngIf="blogForm.controls.title.errors.required">Title is required</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<div class="form-group">
+				<label for="content">Content: </label>
+                <textarea 
+                    class="form-control is-invalid"
+                    [ngClass]="{ 'is-invalid': submitted && blogForm.controls.content.errors }"
+                    id="content"
+                    formControlName="content"
+                    placeholder="Text" 
+                    rows="3"
+                ></textarea>
+				<div *ngIf="submitted && blogForm.controls.content.errors" class="invalid-feedback">
+					<div *ngIf="blogForm.controls.content.errors.required">Content is required</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col form-group">
+			<button type="submit" class="btn btn-success">{{buttonText}}</button>
+			<!-- <button *ngIf="editMode" (click)="cancelEdit()" type="button" class="btn btn-danger editCancel"  [disabled] = "disableButton">Cancel</button> -->
+		</div>
+	</div>
+</form>

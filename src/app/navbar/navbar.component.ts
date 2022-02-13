@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { GeneralService } from '../general.service';
 import {AuthState, onAuthUIStateChange} from "@aws-amplify/ui-components";
 import { AuthenticatorService } from '@aws-amplify/ui-angular';
+import { Router } from '@angular/router';
+import { Hub } from 'aws-amplify';
 
 @Component({
   selector: 'app-navbar',
@@ -10,26 +12,24 @@ import { AuthenticatorService } from '@aws-amplify/ui-angular';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(public authenticator: AuthenticatorService) { }
-
-  user: any;
+  constructor(public authenticator: AuthenticatorService, private router: Router) { 
+    Hub.listen('auth', (data) => {
+      const { payload } = data;
+      if(data.payload.event == 'signIn'){
+        this.router.navigateByUrl('/blog');
+      }
+    })
+  }
 
   ngOnInit(): void {
-    /* this.gService.userChanged.subscribe({
-      next: (user: any) => {
-        this.user = user;
-      }
-    }); */
-    onAuthUIStateChange((nextAuthState, authData) => {
-      if (nextAuthState === AuthState.SignedIn) {
-        console.log("user successfully signed in!");
-        console.log("user data: ", authData);
-      }
-      if (!authData) {
-        console.log("user is not signed in...");
-      }
-    });
-    
+  
   }
+
+  signOut(){
+    this.authenticator.signOut()
+    this.router.navigateByUrl('/login');
+  }
+
+
 }
 

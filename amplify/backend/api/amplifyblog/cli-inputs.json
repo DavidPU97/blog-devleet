@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "amplifyblog",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "E:\\Projects\\devleet\\blog\\amplify\\backend\\api\\amplifyblog\\schema.graphql",
+    "defaultAuthType": {
+      "mode": "AMAZON_COGNITO_USER_POOLS",
+      "cognitoUserPoolId": "authamplifyblogcf83a229"
+    },
+    "conflictResolution": {
+      "defaultResolutionStrategy": {
+        "type": "AUTOMERGE"
+      }
+    },
+    "additionalAuthTypes": [
+      {
+        "mode": "API_KEY",
+        "expirationTime": 365,
+        "apiKeyExpirationDate": "2023-02-13T11:20:04.411Z",
+        "keyDescription": "apikey"
+      }
+    ]
+  }
+}
