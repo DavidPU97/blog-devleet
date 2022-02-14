@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DataStore, Predicates } from 'aws-amplify';
 import { Blog } from 'src/models';
+import { API } from 'aws-amplify';
 
 import { GeneralService } from '../general.service';
 
@@ -27,10 +28,28 @@ export class BlogpostComponent implements OnInit, OnDestroy {
     this.loadBlogs();
   }
 
-  public async loadBlogs() {
-    let blogs = await DataStore.query(Blog, Predicates.ALL)
-    this.blog = blogs
-    console.log(blogs)
+  // public async loadBlogs() {
+  //   let blogs = await DataStore.query(Blog, Predicates.ALL)
+  //   this.blog = blogs
+  //   console.log(blogs)
+  // }
+
+  loadBlogs(){
+    // client request: fetching blogs
+    API.get('blogapi', '/blogs', {}).then(result => {
+    this.blog = JSON.parse(result.body);
+    }).catch(err => {
+    console.log(err);
+    })
+  }
+
+  loadSpecificBlog(id:string){
+    // client request: fetching a todo by id
+    API.get('blogapi', `/blogs/${id}`, {}).then((result) => {
+      this.blog = JSON.parse(result.body);
+    }).catch(err => {
+      console.log(err);
+    })
   }
 
   ngOnDestroy() {

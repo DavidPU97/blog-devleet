@@ -1,0 +1,10 @@
+{
+  "resourceName": "dynamoblog",
+  "tableName": "blog",
+  "partitionKey": {
+    "fieldName": "id",
+    "fieldType": "number"
+  },
+  "gsi": [],
+  "triggerFunctions": []
+}
